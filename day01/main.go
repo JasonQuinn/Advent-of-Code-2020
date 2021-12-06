@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	input, err := os.ReadFile("C:\\Users\\Jason\\go\\src\\Advent-of-Code-2021\\01\\input.txt")
+	input, err := os.ReadFile("input.txt")
 	if err != nil {
 		os.Exit(1)
 	}
