@@ -5,9 +5,9 @@ import (
 	"strings"
 )
 
-func InputToIntSplice(input string) ([]int, error) {
+func SpliceByLineToInts(input string) ([]int, error) {
 	var ints []int
-	stringValues, err := InputToSplice(input)
+	stringValues, err := SpliceByLine(input)
 
 	if err != nil {
 		return nil, err
@@ -23,6 +23,6 @@ func InputToIntSplice(input string) ([]int, error) {
 	return ints, nil
 }
 
-func InputToSplice(input string) ([]string, error) {
+func SpliceByLine(input string) ([]string, error) {
 	return strings.Split(strings.ReplaceAll(input, "\r\n", "\n"), "\n"), nil
 }

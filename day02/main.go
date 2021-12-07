@@ -14,7 +14,7 @@ func main() {
 		os.Exit(1)
 	}
 	file := string(input)
-	values, err := utils.InputToSplice(file)
+	values, err := utils.SpliceByLine(file)
 	if err != nil {
 		os.Exit(1)
 	}

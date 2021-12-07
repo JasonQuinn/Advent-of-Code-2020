@@ -12,7 +12,7 @@ func main() {
 		os.Exit(1)
 	}
 	file := string(input)
-	values, err := utils.InputToIntSplice(file)
+	values, err := utils.SpliceByLineToInts(file)
 	if err != nil {
 		os.Exit(1)
 	}
