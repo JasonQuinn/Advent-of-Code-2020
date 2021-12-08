@@ -109,20 +109,6 @@ func countBoard(board [1000][1000]int) int {
 	return count
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 type point struct {
 	x int
 	y int
