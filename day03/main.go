@@ -12,10 +12,7 @@ func main() {
 		os.Exit(1)
 	}
 	file := string(input)
-	values, err := utils.SpliceByLine(file)
-	if err != nil {
-		os.Exit(1)
-	}
+	values := utils.SpliceByLine(file)
 
 	fmt.Printf("Part1: %v\n", CalculatePowerConsumption(values))
 	fmt.Printf("Part2: %v\n", CalculateScrubber(values))

@@ -6,12 +6,16 @@ import (
 )
 
 func SpliceByLineToInts(input string) ([]int, error) {
-	var ints []int
-	stringValues, err := SpliceByLine(input)
+	return SpliceByToInt(input, "\n")
+}
 
-	if err != nil {
-		return nil, err
-	}
+func SpliceByLine(input string) []string {
+	return SpliceBy(input, "\n")
+}
+
+func SpliceByToInt(input string, sep string) ([]int, error) {
+	var ints []int
+	stringValues := SpliceBy(input, sep)
 
 	for _, line := range stringValues {
 		lineValue, err := strconv.Atoi(line)
@@ -23,6 +27,15 @@ func SpliceByLineToInts(input string) ([]int, error) {
 	return ints, nil
 }
 
-func SpliceByLine(input string) ([]string, error) {
-	return strings.Split(strings.ReplaceAll(input, "\r\n", "\n"), "\n"), nil
+func SpliceBy(input string, sep string) []string {
+	spliced := strings.Split(strings.ReplaceAll(input, "\r\n", "\n"), sep)
+
+	var filtered []string
+	for i := range spliced {
+		if spliced[i] != " " && spliced[i] != "" {
+			filtered = append(filtered, spliced[i])
+		}
+	}
+
+	return filtered
 }

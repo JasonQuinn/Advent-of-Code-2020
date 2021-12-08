@@ -14,10 +14,7 @@ func main() {
 		os.Exit(1)
 	}
 	file := string(input)
-	values, err := utils.SpliceByLine(file)
-	if err != nil {
-		os.Exit(1)
-	}
+	values := utils.SpliceByLine(file)
 
 	{
 		forward, depth, err := CalculatePosition(values)
