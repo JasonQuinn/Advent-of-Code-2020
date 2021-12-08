@@ -26,27 +26,14 @@ func main() {
 }
 
 func part1(bingo Bingo) int {
-	for _, number := range bingo.Numbers {
-		for _, card := range bingo.Cards {
-			for _, line := range card {
-				for i, value := range line {
-					//filter out matching number
-					if value == number {
-						line[i] = -1
-					}
-				}
-			}
-			
-			matched, sum := checkMatch(card)
-			if matched {
-				return sum * number
-			}
-		}
-	}
-	return 0
+	return solve(bingo, 1)
 }
 
 func part2(bingo Bingo) int {
+	return solve(bingo, len(bingo.Cards)-1)
+}
+
+func solve(bingo Bingo, cardToFind int) int {
 	foundCardsCount := 0
 	for _, number := range bingo.Numbers {
 		for j, card := range bingo.Cards {
@@ -66,7 +53,7 @@ func part2(bingo Bingo) int {
 					bingo.Cards[j] = nil
 					foundCardsCount++
 
-					if foundCardsCount == len(bingo.Cards) {
+					if foundCardsCount == cardToFind {
 						return sum * number
 					}
 				}
