@@ -75,6 +75,17 @@ func part2(board [][]int) int {
 	return sizes[0] * sizes[1] * sizes[2]
 }
 
+func mergeMap(map1 map[point]bool, map2 map[point]bool) map[point]bool {
+	newMap := make(map[point]bool)
+	for k, v := range map1 {
+		newMap[k] = v
+	}
+	for k, v := range map2 {
+		newMap[k] = v
+	}
+	return newMap
+}
+
 type point struct {
 	x int
 	y int
@@ -82,32 +93,21 @@ type point struct {
 
 func workOutBasinSize(board [][]int, lowPoint point) int {
 	pointsInRow := getToSides(board, lowPoint)
-	fmt.Printf("Done line %points", pointsInRow)
 
-	below := getBasinBelow(board, pointsInRow)
+	below := getNextRow(board, pointsInRow, 1)
 
-	above := getBasinAbove(board, pointsInRow)
+	above := getNextRow(board, pointsInRow, -1)
 
-	newMap := make(map[point]bool)
-	for k, v := range pointsInRow {
-		newMap[k] = v
-	}
-	for k, v := range below {
-		newMap[k] = v
-	}
-	for k, v := range above {
-		newMap[k] = v
-	}
+	newMap := mergeMap(pointsInRow, mergeMap(below, above))
 
-	fmt.Printf("\n\tAbove-\t\t%v\n\tstarting-\t%v\n\tBelow-\t\t%v\n\n", above, pointsInRow, below)
 	return len(newMap)
 }
 
-func getBasinBelow(board [][]int, currentPositions map[point]bool) map[point]bool {
+func getNextRow(board [][]int, currentPositions map[point]bool, direction int) map[point]bool {
 	row := make(map[point]bool)
 	for position := range currentPositions {
 		valuesToSide := getToSides(board, point{
-			x: position.x + 1,
+			x: position.x + direction,
 			y: position.y,
 		})
 		for k, v := range valuesToSide {
@@ -117,31 +117,7 @@ func getBasinBelow(board [][]int, currentPositions map[point]bool) map[point]boo
 	if len(row) == 0 {
 		return row
 	} else {
-		for k, v := range getBasinBelow(board, row) {
-			row[k] = v
-		}
-		return row
-	}
-}
-
-func getBasinAbove(board [][]int, currentPositions map[point]bool) map[point]bool {
-	row := make(map[point]bool)
-	for position := range currentPositions {
-		valuesToSide := getToSides(board, point{
-			x: position.x - 1,
-			y: position.y,
-		})
-		for k, v := range valuesToSide {
-			row[k] = v
-		}
-	}
-	if len(row) == 0 {
-		return row
-	} else {
-		for k, v := range getBasinAbove(board, row) {
-			row[k] = v
-		}
-		return row
+		return mergeMap(row, getNextRow(board, row, direction))
 	}
 }
 
