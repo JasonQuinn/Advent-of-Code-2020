@@ -20,6 +20,7 @@ func main() {
 }
 
 func part1(board [][]int, numberOfTimes int) int {
+	defer utils.Duration(utils.Track("part1"))
 	//Increase each
 	numberFires := 0
 	for i := 1; i < numberOfTimes; i++ {
@@ -37,11 +38,11 @@ func part1(board [][]int, numberOfTimes int) int {
 			}
 		}
 	}
-
 	return numberFires
 }
 
 func part2(board [][]int) int {
+	defer utils.Duration(utils.Track("part1"))
 	//Increase each
 	for i := 1; true; i++ {
 		for x, row := range board {
