@@ -5,6 +5,15 @@ import (
 	"unicode"
 )
 
+func StringToInt(number string) int {
+	value, err := strconv.ParseInt(number, 10, 32)
+	if err != nil {
+		panic("Not an binary")
+	}
+
+	return int(value)
+}
+
 func BinaryStringToInt(binary string) int {
 	value, err := strconv.ParseInt(binary, 2, 32)
 	if err != nil {
